@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AuthenticationSample.Views.LoginPage"
+             xmlns:viewmodels="clr-namespace:AuthenticationSample.ViewModels"
+             Title="LoginPage">
+    <ContentPage.BindingContext>
+        <viewmodels:LoginViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid RowDefinitions="*, Auto, *">
+            <!-- Centering -->
+            <VerticalStackLayout Grid.Row="1"
+                                 Spacing="20"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center">
+
+                <Image Source="dotnet_bot.png"
+                       HeightRequest="100"
+                       WidthRequest="100"
+                       HorizontalOptions="Center" />
+
+               
+                <Border StrokeShape="RoundRectangle 20"
+                        StrokeThickness="0"
+                        BackgroundColor="White"
+                        Padding="20"
+                        WidthRequest="320"
+                        Shadow="5">
+
+                    <VerticalStackLayout Spacing="15">
+
+                        <Label Text="Please Enter Your Credentials To Login "
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="#2c3e50"
+                               HorizontalOptions="Center" />
+
+                        <Entry Text="{Binding Username}"
+                               Placeholder="Email or Username"
+                               Keyboard="Email"
+                               ClearButtonVisibility="WhileEditing" />
+
+                        <Entry Text="{Binding Password}"
+                               Placeholder="Password"
+                               IsPassword="True"
+                               ClearButtonVisibility="WhileEditing" />
+
+                        <Button Text="Login"
+                                BackgroundColor="#3498db"
+                                TextColor="White"
+                                CornerRadius="12"
+                                HeightRequest="45"
+                                FontAttributes="Bold"
+                                Command="{Binding LoginCommand}"
+                                />
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
