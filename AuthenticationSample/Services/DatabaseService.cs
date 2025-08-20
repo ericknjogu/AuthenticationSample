@@ -1,17 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AuthenticationSample.Services
 {
     public class DatabaseService
     {
 
-        public SqlConnection con = new SqlConnection("Data Source=DESKTOP-SCLSUI7;Initial Catalog=ATCHRMLOCAL;User ID=ritesh;Password=ritesh");
+        public SqlConnection con = new SqlConnection("Data Source=192.168.1.250;Initial Catalog=ATCHRM;User ID=sa;Password=admin_123;TrustServerCertificate=True;");
         DataTable dt = null;
         SqlCommand cmd = null;
 
@@ -27,23 +23,18 @@ namespace AuthenticationSample.Services
 
         public DataTable GetUsers(string username,string password)
         {
-            string q = string.Format("select * from UserLogin where Username = {0} and Password={1}",username,password);
+           
             try
             {
-                con.Open();
-                dt = NewMethod(q);
+                string q = string.Format("select * from UsersMaster_tbl where Empid = {0} and Password = '{1}'", username, password);
+                return NewMethod(q);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                return null;
             }
-            finally
-            {
-               
-                    con.Close();
-               
-            }
-            return dt;
+      
+           
         }
 
     }

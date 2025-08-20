@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using AuthenticationSample.Services;
 using AuthenticationSample.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,6 +9,8 @@ namespace AuthenticationSample.ViewModels
     
     public partial class LoginViewModel: ObservableObject
     {
+        private readonly AuthService _authService;
+
         [ObservableProperty]
         private string username;
 
@@ -22,24 +19,27 @@ namespace AuthenticationSample.ViewModels
 
         public LoginViewModel()
         {
+            _authService = new AuthService();
+         
         }
 
         [RelayCommand]
         private async void Login()
         {
-            DatabaseService dal = new DatabaseService();
+            
 
-            DataTable dt =  dal.GetUsers(username, password);
-
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Username and password cannot be empty.", "OK");
                 return;
             }
 
-            if(username == dt.Rows[0]["Username"].ToString() && password == dt.Rows[0]["Password"].ToString())
+            var Success = await _authService.LoginAsync(Username, Password);
+
+            if (Success)
             {
-                await App.Current.MainPage.DisplayAlert("Success", "Login successful!", "OK");
+
+                //await App.Current.MainPage.DisplayAlert("Success", "Login successful!", "OK");
                 await Shell.Current.GoToAsync(nameof(HomePage));
             }
             else

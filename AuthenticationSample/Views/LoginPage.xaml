@@ -11,9 +11,7 @@
         <Grid RowDefinitions="*, Auto, *">
             <!-- Centering -->
             <VerticalStackLayout Grid.Row="1"
-                                 Spacing="20"
-                                 HorizontalOptions="Center"
-                                 VerticalOptions="Center">
+                                 Spacing="20">
 
                 <Image Source="dotnet_bot.png"
                        HeightRequest="100"
@@ -37,13 +35,15 @@
                                HorizontalOptions="Center" />
 
                         <Entry Text="{Binding Username}"
-                               Placeholder="Email or Username"
+                               Placeholder=" Username or Employee ID"
                                Keyboard="Email"
+                               TextColor="Black"
                                ClearButtonVisibility="WhileEditing" />
 
                         <Entry Text="{Binding Password}"
                                Placeholder="Password"
                                IsPassword="True"
+                               TextColor="Black"
                                ClearButtonVisibility="WhileEditing" />
 
                         <Button Text="Login"
