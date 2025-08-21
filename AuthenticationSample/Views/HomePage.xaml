@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AuthenticationSample.Views.HomePage"
-             Title="HomePage">
-    <VerticalStackLayout>
+             Title="HomePage"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout Margin="10" Padding="10">
         <Label 
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 

@@ -9,7 +9,8 @@ namespace AuthenticationSample.Services
 {
     internal class AuthService
     {
-        private readonly HttpClient _http = new() { BaseAddress = new Uri("http://10.0.2.2:5000/") };
+        //private readonly HttpClient _http = new() { BaseAddress = new Uri("http://10.0.2.2:2030/") };
+        private readonly HttpClient _http = new() { BaseAddress = new Uri("http://192.168.1.22:2030/") };
         public  async Task<bool> LoginAsync(string username, string password)
         {
             var req = new { Username = username, Password = password };

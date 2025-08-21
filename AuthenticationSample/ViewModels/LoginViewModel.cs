@@ -41,6 +41,8 @@ namespace AuthenticationSample.ViewModels
 
                 //await App.Current.MainPage.DisplayAlert("Success", "Login successful!", "OK");
                 await Shell.Current.GoToAsync(nameof(HomePage));
+                Username = string.Empty;
+                Password = string.Empty;
             }
             else
             {

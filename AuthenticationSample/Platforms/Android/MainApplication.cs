@@ -3,7 +3,8 @@ using Android.Runtime;
 
 namespace AuthenticationSample
 {
-    [Application]
+   
+    [Application(UsesCleartextTraffic = true)]
     public class MainApplication : MauiApplication
     {
         public MainApplication(IntPtr handle, JniHandleOwnership ownership)
