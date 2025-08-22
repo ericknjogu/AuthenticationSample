@@ -6,8 +6,8 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace AuthenticationSample.ViewModels
 {
-    
-    public partial class LoginViewModel: ObservableObject
+
+    public partial class LoginViewModel : ObservableObject
     {
         private readonly AuthService _authService;
 
@@ -20,34 +20,51 @@ namespace AuthenticationSample.ViewModels
         public LoginViewModel()
         {
             _authService = new AuthService();
-         
+
         }
 
         [RelayCommand]
         private async void Login()
         {
-            
-
-            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+            try
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Username and password cannot be empty.", "OK");
-                return;
+
+                if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Username and password cannot be empty.", "OK");
+                    return;
+                }
+
+                var Success = await _authService.LoginAsync(Username, Password);
+
+                if (Success)
+                {
+
+                    //await App.Current.MainPage.DisplayAlert("Success", "Login successful!", "OK");
+                    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                    Password = string.Empty;
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Invalid username or password.", "OK");
+                }
+
             }
-
-            var Success = await _authService.LoginAsync(Username, Password);
-
-            if (Success)
+            catch (Exception ex)
             {
 
-                //await App.Current.MainPage.DisplayAlert("Success", "Login successful!", "OK");
-                await Shell.Current.GoToAsync(nameof(HomePage));
-                Username = string.Empty;
+                await App.Current.MainPage.DisplayAlert("Error", "An Error Occured" + ex, "OK");
                 Password = string.Empty;
             }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Invalid username or password.", "OK");
-            }
+
+
+        }
+
+        [RelayCommand]
+        private async void ForgotPassword()
+        {
+
+            await Shell.Current.GoToAsync(nameof(ForgotPasswordPage));
         }
     }
 }

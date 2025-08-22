@@ -17,8 +17,56 @@ namespace AuthenticationSample.Services
 
             var response = await _http.PostAsJsonAsync("api/Auth/login", req);
 
-            return response.IsSuccessStatusCode;
+            if (response.IsSuccessStatusCode)
+            {
+                
+                await SecureStorage.SetAsync("isLoggedIn", "true");
+                await SecureStorage.SetAsync("username", username);
+                await SecureStorage.SetAsync("login_time", DateTime.Now.ToString());
+
+                return true;
+            }
+
+            return false;
 
         }   
+
+        public async Task<bool> IsLoggedInAsync()
+        {
+            var flag = await SecureStorage.GetAsync("isLoggedIn");
+
+            var loginTimeStr = await SecureStorage.GetAsync("login_time");
+
+            if(DateTime.TryParse(loginTimeStr, out var logintime))
+            {
+                if (DateTime.Now - logintime > TimeSpan.FromMinutes(20))
+                {
+                    Logout();
+                    return false;
+                }
+            }
+
+            return flag == "true";
+        }
+
+        public async Task<bool> UpdatePasswordAsync(string username, string newPassword)
+        {
+            var req = new { NewPassword = newPassword };
+
+            //var response = await _http.PostAsJsonAsync($"api/Auth/updatePass/{username}", req);
+
+            var response = await _http.PutAsJsonAsync($"api/Auth/updatePass/{username}", req);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public void Logout()
+        {
+            SecureStorage.Remove("isLoggedIn");
+            SecureStorage.Remove("username");
+
+            SecureStorage.Remove("login_time");
+        }
+            
     }
 }
