@@ -52,5 +52,55 @@ namespace AuthenticationSample.Services
             return empDetails;
         }
 
+
+        
+        //save in Database
+        public async Task<int> SaveQrCode(string qrcode, DateTime savedate)
+        {
+            try
+            {
+                int r = 0;
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (var transaction = connection.BeginTransaction())
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandText = "INSERT INTO Qrcodes_tbl VALUES (@QrCode, @SaveDate)";
+                        command.Parameters.AddWithValue("@QrCode", qrcode);
+                        command.Parameters.AddWithValue("@SaveDate", savedate);
+
+                        try
+                        {
+
+                            r = await command.ExecuteNonQueryAsync();
+
+                            await transaction.CommitAsync();
+
+
+
+                            return r;
+                        
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            return 0;
+                            
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+                throw; 
+
+            }
+        }
+
+
     }
 }

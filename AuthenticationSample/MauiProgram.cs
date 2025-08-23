@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BarcodeScanning;
+using Microsoft.Extensions.Logging;
 
 namespace AuthenticationSample
 {
@@ -14,6 +15,8 @@ namespace AuthenticationSample
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.UseBarcodeScanning();
 
 #if DEBUG
     		builder.Logging.AddDebug();

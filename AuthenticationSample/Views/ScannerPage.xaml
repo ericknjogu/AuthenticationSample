@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AuthenticationSample.Views.ScannerPage"
+             xmlns:scanner ="clr-namespace:BarcodeScanning;assembly=BarcodeScanning.Native.Maui"
+             xmlns:viewmodel="clr-namespace:AuthenticationSample.ViewModels">
+
+    <ContentPage.BindingContext>
+        <viewmodel:ScannerViewModel />
+    </ContentPage.BindingContext>
+    
+    <VerticalStackLayout>
+        <Label 
+            Text="QRCode Scanner"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Margin="50"/>
+
+        <scanner:CameraView 
+            x:Name="BarcodeScanner"
+            CameraEnabled="True"
+            VibrationOnDetected="True"
+            AimMode="True"
+            HeightRequest="200"
+            WidthRequest="300"
+            OnDetectionFinishedCommand="{Binding DetectionFinishedCommand}"/>
+
+        <HorizontalStackLayout  Margin="50" Spacing="10">
+
+            <Label Text="QRText:" 
+                   HorizontalOptions="Center"
+                   FontSize="25"/>
+
+            <Label 
+   
+             Text="{Binding ScannedResult}"
+             VerticalOptions="Center" 
+             HorizontalOptions="Center"
+            
+             FontSize="30"/>
+
+        </HorizontalStackLayout>
+        
+
+        <Button Text="Save QRCode"
+                HorizontalOptions="Center"
+                Margin="10"
+                Command="{Binding SaveQRcodesCommand}"
+                />
+    </VerticalStackLayout>
+</ContentPage>
