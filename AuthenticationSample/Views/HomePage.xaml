@@ -11,17 +11,88 @@
     </ContentPage.BindingContext>
 
     <VerticalStackLayout Margin="10" Padding="10"  >
-        <Label 
-           
-            Text="Welcome To AMA EPZ "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
 
-        <Button 
+        <Label 
+    
+     Text="Welcome To AMA EPZ "
+     VerticalOptions="Center" 
+     HorizontalOptions="Center" />
+
+        <HorizontalStackLayout Spacing="50" Margin="30" >
+            <Button Margin="2"
+            Text="Load Employees"
+            Command="{Binding FetchEmployeesCommand}"/>
+
+            <Button 
             Text="Logout"
-            Padding="2"
-            Margin="40"
+            Padding="10"
+            Margin="4"
             Command="{Binding LogoutCommand}"
-            />
+/>
+        </HorizontalStackLayout>
+
+
+
+        <VerticalStackLayout Padding="10" Spacing="5">
+
+            <!-- Table Header -->
+            <Grid ColumnDefinitions="Auto, Auto,Auto" Padding="5" BackgroundColor="Wheat" ColumnSpacing="80">
+                <Label Text="ID" 
+               FontAttributes="Bold" 
+               FontSize="16" 
+               VerticalOptions="Center" />
+
+                <Label Text="Name" 
+               FontAttributes="Bold" 
+               FontSize="16" 
+               Grid.Column="1" 
+               VerticalOptions="Center" />
+                
+                <Label Text="Status" 
+                FontAttributes="Bold" 
+                FontSize="16" 
+                Grid.Column="2" 
+                VerticalOptions="Center" />
+            </Grid>
+
+            <!-- Data Rows -->
+            <CollectionView ItemsSource="{Binding Employees}" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="Auto,Auto,Auto" Padding="8" 
+                      BackgroundColor="White" 
+                      Margin="0,0,0,2" 
+                      RowSpacing="0" ColumnSpacing="50">
+                            <Grid.Background>
+                                <SolidColorBrush Color="White"/>
+                            </Grid.Background>
+
+                            <!-- EmpId -->
+                            <Label Text="{Binding EmpId}" 
+                           FontSize="15" 
+                           TextColor="#333" 
+                           VerticalOptions="Center" />
+
+                            <!-- EmpName -->
+                            <Label Text="{Binding EmpName}" 
+                           FontSize="15" 
+                           TextColor="#333" 
+                           Grid.Column="1" 
+                           VerticalOptions="Center" />
+
+                            <Label Text="{Binding Status}" 
+                            FontSize="15" 
+                            TextColor="#333" 
+                            Grid.Column="2" 
+                            VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+
+
+
     </VerticalStackLayout>
 </ContentPage>

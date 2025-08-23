@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using AuthenticationSample.Models;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 
@@ -7,34 +8,48 @@ namespace AuthenticationSample.Services
     public class DatabaseService
     {
 
-        public SqlConnection con = new SqlConnection("Data Source=192.168.1.250;Initial Catalog=ATCHRM;User ID=sa;Password=admin_123;TrustServerCertificate=True;");
-        DataTable dt = null;
-        SqlCommand cmd = null;
+        private readonly string connectionString = "Data Source=192.168.1.22;Initial Catalog=ATCHRMLOCAL;User ID=ritesh;Password=ritesh;TrustServerCertificate=True;";
+     
 
-
-        public DataTable NewMethod(string q)
+       public async Task<List<EmpDetail>> FetchEmpDetails()
         {
-            DataTable dtGet = new DataTable();
-            cmd = new SqlCommand(q, con);
-            cmd.CommandTimeout = 50000;
-            new SqlDataAdapter(cmd).Fill(dtGet);
-            return dtGet;
-        }
+            List<EmpDetail> empDetails = new List<EmpDetail>();
 
-        public DataTable GetUsers(string username,string password)
-        {
-           
             try
             {
-                string q = string.Format("select * from UsersMaster_tbl where Empid = {0} and Password = '{1}'", username, password);
-                return NewMethod(q);
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+                    using (var command = new SqlCommand("SELECT EmpId, EmpName,Status FROM EmpDetails", connection))
+                    {
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                empDetails.Add(new EmpDetail
+                                {
+                                    EmpId = reader.GetDecimal(0),
+                                    EmpName = reader.GetString(1),
+                                    Status=reader.GetString(2),
+
+                                });
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception($"Database error: {ex.Message}");
             }
             catch (Exception ex)
             {
-                return null;
+                throw new Exception($"An error occurred: {ex.Message}");
             }
-      
-           
+
+
+            return empDetails;
         }
 
     }
