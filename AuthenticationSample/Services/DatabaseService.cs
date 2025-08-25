@@ -53,7 +53,7 @@ namespace AuthenticationSample.Services
         }
 
 
-        public async Task<List<EmpDetail>> LoadDetails(int empid, int locid )
+        public async Task<List<EmpDetail>> LoadDetails(int locid )
         {
             List<EmpDetail> empDetails = new List<EmpDetail>();
 
@@ -63,8 +63,7 @@ namespace AuthenticationSample.Services
                 {
                     await connection.OpenAsync();
                     using (var command = new SqlCommand(string.Format(@"SELECT LocationName location,EmpId, EmpName,Status FROM EmpDetails
-                                                                        where locationID = {0}
-                                                                        and EmpID = {1}",empid,locid), connection))
+                                                                        where locationID = {0}",locid), connection))
                     {
                         using (var reader = await command.ExecuteReaderAsync())
                         {

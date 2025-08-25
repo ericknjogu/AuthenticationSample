@@ -26,7 +26,7 @@
             </Picker >
 
         </HorizontalStackLayout>
-        <HorizontalStackLayout Spacing="30">
+        <HorizontalStackLayout Spacing="30" IsVisible="False">
 
             <Label Text="Empid:" />
             <Picker
@@ -49,84 +49,91 @@
 
         </HorizontalStackLayout>
 
+        <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always" >
         <HorizontalStackLayout Spacing="30" >
 
-            <VerticalStackLayout Padding="10" Spacing="5">
+                <VerticalStackLayout Padding="10" Spacing="5" IsVisible="{Binding IsVisible}">
 
-                <!-- Table Header -->
-                <Grid ColumnDefinitions="Auto, Auto,Auto,Auto" Padding="5" BackgroundColor="Wheat" ColumnSpacing="40">
-                    <Label Text="Location" 
-                    FontAttributes="Bold" 
-                    FontSize="16" 
-                    Grid.Column="3" 
-                    VerticalOptions="Center" />
-                    
-                    <Label Text="ID" 
-                    FontAttributes="Bold" 
-                    FontSize="16" 
-                    VerticalOptions="Center" />
+                    <!-- Table Header -->
+                    <Grid ColumnDefinitions="100,100,100,100" Padding="3" BackgroundColor="Wheat" ColumnSpacing="40">
+                        <Label Text="Location" 
+         FontAttributes="Bold" 
+         FontSize="16" 
+         Grid.Column="0" 
+         VerticalOptions="Center" />
 
-                    <Label Text="Name" 
-                    FontAttributes="Bold" 
-                    FontSize="16" 
-                    Grid.Column="1" 
-                    VerticalOptions="Center" />
+                        
+                        <Label Text="ID" 
+         FontAttributes="Bold" 
+         FontSize="16" 
+                 Grid.Column="1" 
+         VerticalOptions="Center" />
 
-                    <Label Text="Status" 
-                     FontAttributes="Bold" 
-                     FontSize="16" 
+                        <Label Text="Name" 
+         FontAttributes="Bold" 
+         FontSize="16" 
+         Grid.Column="2" 
+         VerticalOptions="Center" />
+
+                        <Label Text="Status" 
+          FontAttributes="Bold" 
+          FontSize="16" 
+          Grid.Column="3" 
+          VerticalOptions="Center" />
+
+
+                    </Grid>
+
+                    <!-- Data Rows -->
+                    <CollectionView ItemsSource="{Binding EmployeeDetails}" >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="100,100,100,100" Padding="10" 
+                     BackgroundColor="White" 
+                     Margin="0,0,0,2" 
+                     RowSpacing="0" ColumnSpacing="40">
+                                    <Grid.Background>
+                                        <SolidColorBrush Color="White"/>
+                                    </Grid.Background>
+
+                                    <Label Text="{Binding LocationName}" 
+                     FontSize="15" 
+                     TextColor="#333" 
+                     Grid.Column="0" 
+                     VerticalOptions="Center" />
+
+                                    <!-- EmpId -->
+                                    <Label Text="{Binding EmpId}" 
+                     FontSize="15" 
+                      TextColor="#333" 
+                            Grid.Column="1" 
+                     VerticalOptions="Center" />
+
+                                    <!-- EmpName -->
+                                    <Label Text="{Binding EmpName}" 
+                     FontSize="15" 
+                     TextColor="#333" 
                      Grid.Column="2" 
                      VerticalOptions="Center" />
 
-                    
-                </Grid>
+                                    <Label Text="{Binding Status}" 
+                     FontSize="15" 
+                     TextColor="#333" 
+                     Grid.Column="3" 
+                     VerticalOptions="Center" />
 
-                <!-- Data Rows -->
-                <CollectionView ItemsSource="{Binding EmployeeDetails}" >
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" Padding="8" 
-                                BackgroundColor="White" 
-                                Margin="0,0,0,2" 
-                                RowSpacing="0" ColumnSpacing="40">
-                                <Grid.Background>
-                                    <SolidColorBrush Color="White"/>
-                                </Grid.Background> 
-                                
-                                <Label Text="{Binding LocationName}" 
-                                FontSize="15" 
-                                TextColor="#333" 
-                                Grid.Column="3" 
-                                VerticalOptions="Center" />
 
-                                <!-- EmpId -->
-                                <Label Text="{Binding EmpId}" 
-                                FontSize="15" 
-                                 TextColor="#333" 
-                                VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                                <!-- EmpName -->
-                                <Label Text="{Binding EmpName}" 
-                                FontSize="15" 
-                                TextColor="#333" 
-                                Grid.Column="1" 
-                                VerticalOptions="Center" />
+                </VerticalStackLayout>
 
-                                <Label Text="{Binding Status}" 
-                                FontSize="15" 
-                                TextColor="#333" 
-                                Grid.Column="2" 
-                                VerticalOptions="Center" />
-
-                                
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
-            </VerticalStackLayout>
+           
 
         </HorizontalStackLayout>
+        </ScrollView>
 
 
 

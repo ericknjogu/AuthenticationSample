@@ -17,6 +17,10 @@ namespace AuthenticationSample.ViewModels
         [ObservableProperty]
         private string password;
 
+        [ObservableProperty]
+
+        private bool isRunning = false;
+
         public LoginViewModel()
         {
             _authService = new AuthService();
@@ -26,9 +30,10 @@ namespace AuthenticationSample.ViewModels
         [RelayCommand]
         private async void Login()
         {
+
             try
             {
-
+                IsRunning = true;
                 if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
                 {
                     await App.Current.MainPage.DisplayAlert("Error", "Username and password cannot be empty.", "OK");
@@ -55,6 +60,11 @@ namespace AuthenticationSample.ViewModels
 
                 await App.Current.MainPage.DisplayAlert("Error", "An Error Occured" + ex, "OK");
                 Password = string.Empty;
+                IsRunning = false;
+            }
+            finally
+            {
+                IsRunning = false;
             }
 
 

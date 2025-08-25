@@ -10,8 +10,8 @@
     <ContentPage.BindingContext>
         <viewmodels:LoginViewModel />
     </ContentPage.BindingContext>
-    
-    
+
+    <Grid>
     <ScrollView>
         <Grid RowDefinitions="*">
             <!-- Centering -->
@@ -96,6 +96,7 @@
                                 HeightRequest="45"
                                 Margin="30"
                                 FontAttributes="Bold"
+                               
                                 Command="{Binding LoginCommand}" />
                         
 
@@ -103,6 +104,36 @@
                 </Border>
 
             </VerticalStackLayout>
+
+           
+         
         </Grid>
+
     </ScrollView>
+       
+            <Border StrokeShape="RoundRectangle 20"
+            StrokeThickness="1"
+            Stroke="LightGray"
+            BackgroundColor="White"
+            Padding="20"
+            WidthRequest="250"
+            HeightRequest="200"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            IsVisible="{Binding IsRunning}">
+
+                <VerticalStackLayout Spacing="10"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="{Binding IsRunning}" 
+                               Color="Blue" />
+                    <Label Text="Loading..."
+                   VerticalOptions="Center"
+                   TextColor="Black"
+                   FontSize="20" />
+                </VerticalStackLayout>
+            </Border>
+       
+    </Grid>
+
 </ContentPage>

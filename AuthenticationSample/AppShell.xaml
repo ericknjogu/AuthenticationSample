@@ -24,9 +24,11 @@
             Route="ScannerPage"/>
 
         <ShellContent 
-            Title="Empoyees"
+            Title="Employees"
             ContentTemplate="{DataTemplate views:EmployeesPage}"
             Route="EmployeesPage"/>
+        
+        
     </TabBar>
 
 </Shell>
