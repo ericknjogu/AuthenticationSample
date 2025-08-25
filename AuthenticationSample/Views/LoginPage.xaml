@@ -14,7 +14,7 @@
     <Grid>
     <ScrollView>
         <Grid RowDefinitions="*">
-            <!-- Centering -->
+        
             <VerticalStackLayout Grid.Row="1"
                                  Spacing="20"
                                  Margin="50">
@@ -105,8 +105,6 @@
 
             </VerticalStackLayout>
 
-           
-         
         </Grid>
 
     </ScrollView>

@@ -10,11 +10,7 @@
     </ContentPage.BindingContext>
     
     <VerticalStackLayout>
-        <Label 
-            Text="QRCode Scanner"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            Margin="50"/>
+     
 
         <scanner:CameraView 
             x:Name="BarcodeScanner"

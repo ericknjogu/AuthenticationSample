@@ -15,6 +15,9 @@ namespace AuthenticationSample.ViewModels
         [ObservableProperty]
         private string newPassword;
 
+        [ObservableProperty]
+        private bool isRunning = false; 
+
         public ForgotPasswordViewModel()
         {
             _authService = new AuthService();
@@ -26,7 +29,8 @@ namespace AuthenticationSample.ViewModels
         {
             try
             {
-                if(string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(NewPassword))
+                IsRunning = true;
+                if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(NewPassword))
                 {
                     await App.Current.MainPage.DisplayAlert("Error", "Username and password cannot be empty.", "OK");
                     return;
@@ -52,6 +56,11 @@ namespace AuthenticationSample.ViewModels
 
                 await App.Current.MainPage.DisplayAlert("Error", "An Error Occured" + ex, "OK");
                 NewPassword = string.Empty;
+                IsRunning = false;  
+            }
+            finally
+            {
+                IsRunning = false;
             }
         }   
 

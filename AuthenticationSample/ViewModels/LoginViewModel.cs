@@ -67,7 +67,6 @@ namespace AuthenticationSample.ViewModels
                 IsRunning = false;
             }
 
-
         }
 
         [RelayCommand]
