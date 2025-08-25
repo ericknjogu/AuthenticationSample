@@ -13,11 +13,18 @@ namespace AuthenticationSample.ViewModels
     public partial class ScannerViewModel:ObservableObject
     {
         DatabaseService _db = new DatabaseService();
+
+ 
         [ObservableProperty]
         private string scannedResult;
+
+        [ObservableProperty]
+        private bool isButtonEnabled;
+
         public ScannerViewModel()
         {
         }
+
 
         [RelayCommand]
 
@@ -27,9 +34,11 @@ namespace AuthenticationSample.ViewModels
             foreach (var barcode in results)
             {
                 ScannedResult = barcode.RawValue;
+                IsButtonEnabled = true;
                 break;
 
             }
+            
         }
 
         [RelayCommand]
@@ -42,6 +51,7 @@ namespace AuthenticationSample.ViewModels
                 if (r > 0)
                 {
                     ScannedResult = string.Empty;
+                    IsButtonEnabled = false;
                     await App.Current.MainPage.DisplayAlert("Success", "Qrcode saved Succesfully", "OK");
                 }
                 else
@@ -56,6 +66,12 @@ namespace AuthenticationSample.ViewModels
                 await App.Current.MainPage.DisplayAlert("Failed", "An error occured"+ex, "Ok");
             }
            
+        }
+
+        [RelayCommand]
+        public void Cancel()
+        {
+            ScannedResult = string.Empty;
         }
     }
 }

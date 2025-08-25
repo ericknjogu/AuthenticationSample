@@ -32,7 +32,7 @@
                    FontSize="25"/>
 
             <Label 
-   
+             x:Name="ResultLabel"
              Text="{Binding ScannedResult}"
              VerticalOptions="Center" 
              HorizontalOptions="Center"
@@ -40,12 +40,27 @@
              FontSize="30"/>
 
         </HorizontalStackLayout>
-        
 
-        <Button Text="Save QRCode"
-                HorizontalOptions="Center"
-                Margin="10"
-                Command="{Binding SaveQRcodesCommand}"
-                />
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="45">
+
+            <Button Text="Clear"
+            HorizontalOptions="Center"
+            Margin="10"
+            IsEnabled="{Binding IsButtonEnabled}"
+            Command="{Binding CancelCommand}"
+             />
+
+            <Button 
+                Text="Save QRCode"
+            HorizontalOptions="Center"
+            Margin="10"
+            IsEnabled="{Binding IsButtonEnabled}"
+            Command="{Binding SaveQRcodesCommand}"
+            />
+
+         
+        </HorizontalStackLayout>
+
+        
     </VerticalStackLayout>
 </ContentPage>

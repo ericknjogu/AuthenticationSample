@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AuthenticationSample.Views.EmployeesPage"
+             Title="EmployeesPage"
+             xmlns:viewmodel="clr-namespace:AuthenticationSample.ViewModels">
+
+    <ContentPage.BindingContext>
+        <viewmodel:EmployeesViewModel/>
+    </ContentPage.BindingContext>
+
+
+    <StackLayout Padding = "20" Spacing="40" >
+
+        <HorizontalStackLayout Spacing="30">
+
+            <Label Text="Location:" />
+
+            <Picker
+                x:Name="LocIdPicker"
+                Title="Select Location"
+                ItemsSource="{Binding Location}"
+                ItemDisplayBinding="{Binding LocationName}"
+                SelectedItem="{Binding SelectedLocation,Mode=TwoWay}"
+                WidthRequest="200">
+            </Picker >
+
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="30">
+
+            <Label Text="Empid:" />
+            <Picker
+            x:Name="EmpIdPicker"
+            Title="Select Empid"
+            ItemsSource="{Binding Employees}"
+                ItemDisplayBinding="{Binding EmpName}"
+            SelectedItem="{Binding SelectedEmployee,Mode=TwoWay}"
+            WidthRequest="200">
+
+            </Picker >
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="30" >
+
+            <Button Text="Load" 
+                    Padding="10"
+                    Command="{Binding LoadDetailsCommand}"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="30" >
+
+            <VerticalStackLayout Padding="10" Spacing="5">
+
+                <!-- Table Header -->
+                <Grid ColumnDefinitions="Auto, Auto,Auto,Auto" Padding="5" BackgroundColor="Wheat" ColumnSpacing="40">
+                    <Label Text="Location" 
+                    FontAttributes="Bold" 
+                    FontSize="16" 
+                    Grid.Column="3" 
+                    VerticalOptions="Center" />
+                    
+                    <Label Text="ID" 
+                    FontAttributes="Bold" 
+                    FontSize="16" 
+                    VerticalOptions="Center" />
+
+                    <Label Text="Name" 
+                    FontAttributes="Bold" 
+                    FontSize="16" 
+                    Grid.Column="1" 
+                    VerticalOptions="Center" />
+
+                    <Label Text="Status" 
+                     FontAttributes="Bold" 
+                     FontSize="16" 
+                     Grid.Column="2" 
+                     VerticalOptions="Center" />
+
+                    
+                </Grid>
+
+                <!-- Data Rows -->
+                <CollectionView ItemsSource="{Binding EmployeeDetails}" >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" Padding="8" 
+                                BackgroundColor="White" 
+                                Margin="0,0,0,2" 
+                                RowSpacing="0" ColumnSpacing="40">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="White"/>
+                                </Grid.Background> 
+                                
+                                <Label Text="{Binding LocationName}" 
+                                FontSize="15" 
+                                TextColor="#333" 
+                                Grid.Column="3" 
+                                VerticalOptions="Center" />
+
+                                <!-- EmpId -->
+                                <Label Text="{Binding EmpId}" 
+                                FontSize="15" 
+                                 TextColor="#333" 
+                                VerticalOptions="Center" />
+
+                                <!-- EmpName -->
+                                <Label Text="{Binding EmpName}" 
+                                FontSize="15" 
+                                TextColor="#333" 
+                                Grid.Column="1" 
+                                VerticalOptions="Center" />
+
+                                <Label Text="{Binding Status}" 
+                                FontSize="15" 
+                                TextColor="#333" 
+                                Grid.Column="2" 
+                                VerticalOptions="Center" />
+
+                                
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+        </HorizontalStackLayout>
+
+
+
+    </StackLayout>
+</ContentPage>

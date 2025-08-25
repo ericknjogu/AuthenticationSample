@@ -13,8 +13,6 @@
         Route="LoginPage" />
 
     <TabBar>
-
-
         <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate views:HomePage}"
@@ -25,6 +23,10 @@
             ContentTemplate="{DataTemplate views:ScannerPage}"
             Route="ScannerPage"/>
 
+        <ShellContent 
+            Title="Empoyees"
+            ContentTemplate="{DataTemplate views:EmployeesPage}"
+            Route="EmployeesPage"/>
     </TabBar>
 
 </Shell>

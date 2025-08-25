@@ -36,7 +36,6 @@ namespace AuthenticationSample.ViewModels
         }
 
         [RelayCommand]
-
         public async void Logout()
         {
             var authservice = new AuthService();
@@ -53,9 +52,7 @@ namespace AuthenticationSample.ViewModels
                 return;
             }
 
-
-
-                await Shell.Current.GoToAsync("///LoginPage");
+            await Shell.Current.GoToAsync("///LoginPage");
         }
     }
 }

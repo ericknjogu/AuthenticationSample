@@ -7,6 +7,8 @@ public partial class ScannerPage : ContentPage
 	public ScannerPage()
 	{
 		InitializeComponent();
+
+        Unloaded += (sender, e) => { BarcodeScanner.Handler.DisconnectHandler(); };
 	}
 
     protected override async void OnAppearing()
@@ -21,6 +23,7 @@ public partial class ScannerPage : ContentPage
     {
         base.OnDisappearing();
         BarcodeScanner.CameraEnabled = false;
+
     }
 
 }
