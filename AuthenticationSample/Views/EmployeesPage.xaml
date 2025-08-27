@@ -49,7 +49,7 @@
 
         </HorizontalStackLayout>
 
-        <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always" >
+        <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always"  >
         <HorizontalStackLayout Spacing="30" >
 
                 <VerticalStackLayout Padding="10" Spacing="5" IsVisible="{Binding IsVisible}">
